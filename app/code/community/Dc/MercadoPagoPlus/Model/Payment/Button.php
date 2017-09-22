@@ -135,7 +135,12 @@ class Dc_MercadoPagoPlus_Model_Payment_Button extends Mage_Payment_Model_Method_
      */
     private function getProductThumbnail($product)
     {
-        return (string)Mage::helper('catalog/image')->init($product, 'thumbnail')->resize(100);
+	try {
+            return (string)Mage::helper('catalog/image')->init($product, 'thumbnail')->resize(100);
+        } catch(Exception $e) {
+            //Products without image: Exception message: Image file was not found.
+            return "";
+        }
     }
 
 }
